@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.agentplatform.infrastructure.mapper.ConversationMapper">
+    <resultMap id="ConversationResultMap" type="com.example.agentplatform.domain.model.Conversation">
+        <id column="id" property="id" />
+        <result column="workflow_id" property="workflowId" />
+        <result column="workflow_version_id" property="workflowVersionId" />
+        <result column="memory_policy" property="memoryPolicy" />
+        <result column="created_at" property="createdAt" />
+    </resultMap>
+
+    <insert id="insert" parameterType="com.example.agentplatform.domain.model.Conversation" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO conversation(workflow_id, workflow_version_id, memory_policy)
+        VALUES (#{workflowId}, #{workflowVersionId}, #{memoryPolicy})
+    </insert>
+
+    <select id="findById" resultMap="ConversationResultMap">
+        SELECT * FROM conversation WHERE id = #{id}
+    </select>
+</mapper>

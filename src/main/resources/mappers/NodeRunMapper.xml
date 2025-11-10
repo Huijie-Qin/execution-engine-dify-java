@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.agentplatform.infrastructure.mapper.NodeRunMapper">
+    <resultMap id="NodeRunResultMap" type="com.example.agentplatform.domain.model.NodeRun">
+        <id column="id" property="id" />
+        <result column="execution_id" property="executionId" />
+        <result column="node_id" property="nodeId" />
+        <result column="status" property="status" />
+        <result column="logs" property="logs" />
+        <result column="output_json" property="outputJson" />
+        <result column="started_at" property="startedAt" />
+        <result column="ended_at" property="endedAt" />
+    </resultMap>
+
+    <insert id="insert" parameterType="com.example.agentplatform.domain.model.NodeRun" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO node_run(execution_id, node_id, status, logs, output_json)
+        VALUES (#{executionId}, #{nodeId}, #{status}, #{logs}, #{outputJson})
+    </insert>
+
+    <update id="update" parameterType="com.example.agentplatform.domain.model.NodeRun">
+        UPDATE node_run
+        SET status = #{status},
+            logs = #{logs},
+            output_json = #{outputJson},
+            started_at = #{startedAt},
+            ended_at = #{endedAt}
+        WHERE id = #{id}
+    </update>
+
+    <select id="findByExecutionId" resultMap="NodeRunResultMap">
+        SELECT * FROM node_run WHERE execution_id = #{executionId}
+    </select>
+</mapper>

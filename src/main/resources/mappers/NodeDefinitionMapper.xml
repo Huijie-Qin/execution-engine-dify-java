@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.agentplatform.infrastructure.mapper.NodeDefinitionMapper">
+    <resultMap id="NodeResultMap" type="com.example.agentplatform.domain.model.NodeDefinition">
+        <id column="id" property="id" />
+        <result column="workflow_version_id" property="workflowVersionId" />
+        <result column="type" property="type" />
+        <result column="config_json" property="configJson" />
+        <result column="in_schema" property="inSchema" />
+        <result column="out_schema" property="outSchema" />
+        <result column="position_x" property="positionX" />
+        <result column="position_y" property="positionY" />
+    </resultMap>
+
+    <insert id="insert" parameterType="com.example.agentplatform.domain.model.NodeDefinition" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO node(workflow_version_id, type, config_json, in_schema, out_schema, position_x, position_y)
+        VALUES (#{workflowVersionId}, #{type}, #{configJson}, #{inSchema}, #{outSchema}, #{positionX}, #{positionY})
+    </insert>
+
+    <select id="findByWorkflowVersionId" resultMap="NodeResultMap">
+        SELECT * FROM node WHERE workflow_version_id = #{workflowVersionId} ORDER BY id ASC
+    </select>
+</mapper>

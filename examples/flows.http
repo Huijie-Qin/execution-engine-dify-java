@@ -1,0 +1,19 @@
+### CSV Statistical Analysis Flow
+POST http://localhost:8080/workflows
+Content-Type: application/json
+
+{
+  "name": "CSV Flow",
+  "graphJson": "{}",
+  "variablesJson": "{}"
+}
+
+### Document Extraction Flow (placeholder)
+POST http://localhost:8080/workflows
+Content-Type: application/json
+
+{
+  "name": "Doc Flow",
+  "graphJson": "{}",
+  "variablesJson": "{}"
+}
