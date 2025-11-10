@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.agentplatform.infrastructure.mapper.PluginRegistryMapper">
+    <resultMap id="PluginResultMap" type="com.example.agentplatform.domain.model.PluginRegistryEntry">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="version" property="version" />
+        <result column="type" property="type" />
+        <result column="enabled" property="enabled" />
+        <result column="manifest_json" property="manifestJson" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+    </resultMap>
+
+    <insert id="insert" parameterType="com.example.agentplatform.domain.model.PluginRegistryEntry" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO plugin_registry(name, version, type, enabled, manifest_json)
+        VALUES (#{name}, #{version}, #{type}, #{enabled}, #{manifestJson})
+    </insert>
+
+    <update id="update" parameterType="com.example.agentplatform.domain.model.PluginRegistryEntry">
+        UPDATE plugin_registry
+        SET name = #{name},
+            version = #{version},
+            type = #{type},
+            enabled = #{enabled},
+            manifest_json = #{manifestJson}
+        WHERE id = #{id}
+    </update>
+
+    <select id="findAll" resultMap="PluginResultMap">
+        SELECT * FROM plugin_registry ORDER BY id DESC
+    </select>
+
+    <select id="findByNameAndVersion" resultMap="PluginResultMap">
+        SELECT * FROM plugin_registry WHERE name = #{name} AND version = #{version} LIMIT 1
+    </select>
+
+    <select id="findById" resultMap="PluginResultMap">
+        SELECT * FROM plugin_registry WHERE id = #{id}
+    </select>
+</mapper>

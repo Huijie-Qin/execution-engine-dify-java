@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: agent-platform
+  datasource:
+    url: ${AGENT_PLATFORM_DB_URL:jdbc:mysql://localhost:3306/agent_platform?useSSL=false&characterEncoding=utf8mb4&serverTimezone=UTC}
+    username: ${AGENT_PLATFORM_DB_USER:root}
+    password: ${AGENT_PLATFORM_DB_PASSWORD:secret}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 30000
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+mybatis:
+  mapper-locations: classpath:/mappers/**/*.xml
+  type-aliases-package: com.example.agentplatform.domain
+  configuration:
+    map-underscore-to-camel-case: true
+    default-statement-timeout: 30
+server:
+  port: 8080
+logging:
+  level:
+    root: INFO
+    com.example.agentplatform: DEBUG

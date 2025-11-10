@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.agentplatform.infrastructure.mapper.ExecutionMapper">
+    <resultMap id="ExecutionResultMap" type="com.example.agentplatform.domain.model.Execution">
+        <id column="id" property="id" />
+        <result column="workflow_version_id" property="workflowVersionId" />
+        <result column="status" property="status" />
+        <result column="started_at" property="startedAt" />
+        <result column="ended_at" property="endedAt" />
+        <result column="context_json" property="contextJson" />
+    </resultMap>
+
+    <insert id="insert" parameterType="com.example.agentplatform.domain.model.Execution" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO execution(workflow_version_id, status, context_json)
+        VALUES (#{workflowVersionId}, #{status}, #{contextJson})
+    </insert>
+
+    <update id="update" parameterType="com.example.agentplatform.domain.model.Execution">
+        UPDATE execution
+        SET status = #{status},
+            started_at = #{startedAt},
+            ended_at = #{endedAt},
+            context_json = #{contextJson}
+        WHERE id = #{id}
+    </update>
+
+    <select id="findById" resultMap="ExecutionResultMap">
+        SELECT * FROM execution WHERE id = #{id}
+    </select>
+</mapper>
