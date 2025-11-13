@@ -1,7 +1,0 @@
-spring:
-  datasource:
-    url: jdbc:tc:mysql:8.0:///agent_platform?TC_INITSCRIPT=db/init-test.sql
-    username: test
-    password: test
-  flyway:
-    enabled: false
